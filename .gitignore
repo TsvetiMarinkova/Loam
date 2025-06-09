@@ -1,0 +1,12 @@
+# Node
+frontend/node_modules/
+backend/node_modules/
+
+# Build
+dist/
+
+# Env
+backend/.env
+
+# System files
+Thumbs.db
