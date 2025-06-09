@@ -1,4 +1,4 @@
-// Load environment variables from .env
+// Loading environment variables from .env
 require('dotenv').config();
 
 const express = require('express');
@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Redirect user to Spotify for login
+// Redirecting the user to Spotify for login
 app.get('/login', (req, res) => {
     const scope = 'playlist-modify-public playlist-modify-private';
     const authUrl = 'https://accounts.spotify.com/authorize?' +
@@ -25,7 +25,7 @@ app.get('/login', (req, res) => {
     res.redirect(authUrl);
 });
 
-// Handle callback from Spotify and return access token to frontend
+// Handling callback from Spotify and returning access token to frontend
 app.get('/callback', async (req, res) => {
     const code = req.query.code;
 
@@ -53,12 +53,12 @@ app.get('/callback', async (req, res) => {
     }
 });
 
-// Create a playlist and add tracks
+// Creating a playlist and adding tracks
 app.post('/create-playlist', async (req, res) => {
     const { accessToken, userId, name, description, uris } = req.body;
 
     try {
-        // Create the playlist
+        // Creating the playlist
         const playlistRes = await axios.post(
             `https://api.spotify.com/v1/users/${userId}/playlists`,
             {
@@ -76,7 +76,7 @@ app.post('/create-playlist', async (req, res) => {
 
         const playlistId = playlistRes.data.id;
 
-        // Add tracks to the playlist
+        // Adding tracks to the playlist
         await axios.post(
             `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
             { uris },
@@ -95,7 +95,7 @@ app.post('/create-playlist', async (req, res) => {
     }
 });
 
-// Start the server
+// Starting the server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
